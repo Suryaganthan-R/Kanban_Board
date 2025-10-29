@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Kanban Board</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .register-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            max-width: 450px;
+        }
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+        }
+        .form-control:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+        }
+        .btn-outline-secondary {
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-card">
+        <div class="text-center mb-4">
+            <h2><i class="fas fa-user-plus text-success me-2"></i>Create Account</h2>
+            <p class="text-muted">Join Kanban Board today</p>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-danger">
+            <i class="fas fa-exclamation-circle me-2"></i><span th:text="${error}"></span>
+        </div>
+        
+        <form th:action="@{/register}" method="post" th:object="${user}">
+            <div class="mb-3">
+                <label for="name" class="form-label">
+                    <i class="fas fa-user me-2"></i>Full Name
+                </label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">
+                    <i class="fas fa-envelope me-2"></i>Email
+                </label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            </div>
+            
+            <div class="mb-4">
+                <label for="password" class="form-label">
+                    <i class="fas fa-lock me-2"></i>Password
+                </label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" required minlength="6">
+                <div class="form-text">Password must be at least 6 characters long</div>
+            </div>
+            
+            <button type="submit" class="btn btn-success w-100 mb-3">
+                <i class="fas fa-user-plus me-2"></i>Create Account
+            </button>
+        </form>
+        
+        <div class="text-center">
+            <p class="mb-0">Already have an account?</p>
+            <a href="/login" class="btn btn-outline-secondary w-100 mt-2">
+                <i class="fas fa-sign-in-alt me-2"></i>Sign In
+            </a>
+        </div>
+    </div>
+</body>
+</html>
